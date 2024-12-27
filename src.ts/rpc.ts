@@ -112,28 +112,32 @@ export class AlkanesRpc extends BaseRpc {
     );
   }
 
+  private encodeHeight(height: number): string {
+    // Create a buffer for a 32-bit integer
+    const buffer = Buffer.alloc(4);
+    // Write the height as a 32-bit little-endian integer
+    buffer.writeUInt32LE(height);
+    // Return as hex string with 0x prefix
+    return "0x" + buffer.toString("hex");
+  }
+
   async listdeployedalkanes(blockTag: BlockTag = "latest") {
+    // Convert protocol tag to hex string if needed
+    const buffer = this.encodeHeight(0); // just encode default height
+
     const response = await this._call(
       {
         method: "listdeployedalkanes",
-        input: "0x",
+        input: buffer, // no need to convert to hex string, should already be in correct format
       },
       blockTag
     );
 
     const result = protoalkanes.DeployedAlkanesResponse.deserializeBinary(
       Buffer.from(response.slice(2), "hex")
-    ).toObject();
+    );
 
-    return {
-      ...result,
-      alkanes: result.alkanes?.map((alkane) => ({
-        ...alkane,
-        totalSupply: alkane.total_supply
-          ? BigInt(alkane.total_supply.toString())
-          : null,
-      })),
-    };
+    return result;
   }
 
   async trace(
