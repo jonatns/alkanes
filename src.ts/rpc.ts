@@ -113,16 +113,18 @@ export class AlkanesRpc extends BaseRpc {
   }
 
   async listdeployedalkanes(blockTag: BlockTag = "latest") {
-    const payload = encodeBlockHeightInput(0);
+    // Create a buffer for the height (u32)
+    const buffer = Buffer.alloc(4);
+    buffer.writeUInt32LE(0); // Write height 0 as LE uint32
+
     const response = await this._call(
       {
         method: "listdeployedalkanes",
-        input: payload,
+        input: "0x" + buffer.toString("hex"),
       },
       blockTag
     );
 
-    // Parse like other responses
     return protoalkanes.DeployedAlkanesResponse.deserializeBinary(
       Buffer.from(response.slice(2), "hex")
     );
