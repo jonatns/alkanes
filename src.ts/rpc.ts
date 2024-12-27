@@ -113,19 +113,27 @@ export class AlkanesRpc extends BaseRpc {
   }
 
   async listdeployedalkanes(blockTag: BlockTag = "latest") {
-    const buffer = new Uint8Array();
-
     const response = await this._call(
       {
         method: "listdeployedalkanes",
-        input: buffer,
+        input: "0x",
       },
       blockTag
     );
 
-    return protoalkanes.DeployedAlkanesResponse.deserializeBinary(
+    const result = protoalkanes.DeployedAlkanesResponse.deserializeBinary(
       Buffer.from(response.slice(2), "hex")
-    );
+    ).toObject();
+
+    return {
+      ...result,
+      alkanes: result.alkanes?.map((alkane) => ({
+        ...alkane,
+        totalSupply: alkane.total_supply
+          ? BigInt(alkane.total_supply.toString())
+          : null,
+      })),
+    };
   }
 
   async trace(
