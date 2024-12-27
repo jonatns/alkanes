@@ -102,3 +102,15 @@ message AlkaneInventoryRequest {
 message AlkaneInventoryResponse {
   repeated AlkaneTransfer alkanes = 1;
 }
+
+message DeployedAlkane {
+    optional AlkaneId id = 1;
+    optional string name = 2;
+    optional string symbol = 3;
+    optional uint64 total_supply = 4;
+}
+
+message DeployedAlkanesResponse {
+    repeated DeployedAlkane alkanes = 1;
+    optional string error = 2;
+}

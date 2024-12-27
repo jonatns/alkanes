@@ -468,4 +468,76 @@ export declare namespace alkanes {
         serializeBinary(): Uint8Array;
         static deserializeBinary(bytes: Uint8Array): AlkaneInventoryResponse;
     }
+    class DeployedAlkane extends pb_1.Message {
+        #private;
+        constructor(data?: any[] | ({} & (({
+            id?: AlkaneId;
+        }) | ({
+            name?: string;
+        }) | ({
+            symbol?: string;
+        }) | ({
+            total_supply?: number;
+        }))));
+        get id(): AlkaneId;
+        set id(value: AlkaneId);
+        get has_id(): boolean;
+        get name(): string;
+        set name(value: string);
+        get has_name(): boolean;
+        get symbol(): string;
+        set symbol(value: string);
+        get has_symbol(): boolean;
+        get total_supply(): number;
+        set total_supply(value: number);
+        get has_total_supply(): boolean;
+        get _id(): "none" | "id";
+        get _name(): "name" | "none";
+        get _symbol(): "symbol" | "none";
+        get _total_supply(): "none" | "total_supply";
+        static fromObject(data: {
+            id?: ReturnType<typeof AlkaneId.prototype.toObject>;
+            name?: string;
+            symbol?: string;
+            total_supply?: number;
+        }): DeployedAlkane;
+        toObject(): {
+            id?: ReturnType<typeof AlkaneId.prototype.toObject>;
+            name?: string;
+            symbol?: string;
+            total_supply?: number;
+        };
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): DeployedAlkane;
+        serializeBinary(): Uint8Array;
+        static deserializeBinary(bytes: Uint8Array): DeployedAlkane;
+    }
+    class DeployedAlkanesResponse extends pb_1.Message {
+        #private;
+        constructor(data?: any[] | ({
+            alkanes?: DeployedAlkane[];
+        } & (({
+            error?: string;
+        }))));
+        get alkanes(): DeployedAlkane[];
+        set alkanes(value: DeployedAlkane[]);
+        get error(): string;
+        set error(value: string);
+        get has_error(): boolean;
+        get _error(): "none" | "error";
+        static fromObject(data: {
+            alkanes?: ReturnType<typeof DeployedAlkane.prototype.toObject>[];
+            error?: string;
+        }): DeployedAlkanesResponse;
+        toObject(): {
+            alkanes?: ReturnType<typeof DeployedAlkane.prototype.toObject>[];
+            error?: string;
+        };
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): DeployedAlkanesResponse;
+        serializeBinary(): Uint8Array;
+        static deserializeBinary(bytes: Uint8Array): DeployedAlkanesResponse;
+    }
 }

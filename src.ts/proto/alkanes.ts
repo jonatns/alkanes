@@ -1726,4 +1726,294 @@ export namespace alkanes {
             return AlkaneInventoryResponse.deserialize(bytes);
         }
     }
+    export class DeployedAlkane extends pb_1.Message {
+        #one_of_decls: number[][] = [[1], [2], [3], [4]];
+        constructor(data?: any[] | ({} & (({
+            id?: AlkaneId;
+        }) | ({
+            name?: string;
+        }) | ({
+            symbol?: string;
+        }) | ({
+            total_supply?: number;
+        })))) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("id" in data && data.id != undefined) {
+                    this.id = data.id;
+                }
+                if ("name" in data && data.name != undefined) {
+                    this.name = data.name;
+                }
+                if ("symbol" in data && data.symbol != undefined) {
+                    this.symbol = data.symbol;
+                }
+                if ("total_supply" in data && data.total_supply != undefined) {
+                    this.total_supply = data.total_supply;
+                }
+            }
+        }
+        get id() {
+            return pb_1.Message.getWrapperField(this, AlkaneId, 1) as AlkaneId;
+        }
+        set id(value: AlkaneId) {
+            pb_1.Message.setOneofWrapperField(this, 1, this.#one_of_decls[0], value);
+        }
+        get has_id() {
+            return pb_1.Message.getField(this, 1) != null;
+        }
+        get name() {
+            return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+        }
+        set name(value: string) {
+            pb_1.Message.setOneofField(this, 2, this.#one_of_decls[1], value);
+        }
+        get has_name() {
+            return pb_1.Message.getField(this, 2) != null;
+        }
+        get symbol() {
+            return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+        }
+        set symbol(value: string) {
+            pb_1.Message.setOneofField(this, 3, this.#one_of_decls[2], value);
+        }
+        get has_symbol() {
+            return pb_1.Message.getField(this, 3) != null;
+        }
+        get total_supply() {
+            return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
+        }
+        set total_supply(value: number) {
+            pb_1.Message.setOneofField(this, 4, this.#one_of_decls[3], value);
+        }
+        get has_total_supply() {
+            return pb_1.Message.getField(this, 4) != null;
+        }
+        get _id() {
+            const cases: {
+                [index: number]: "none" | "id";
+            } = {
+                0: "none",
+                1: "id"
+            };
+            return cases[pb_1.Message.computeOneofCase(this, [1])];
+        }
+        get _name() {
+            const cases: {
+                [index: number]: "none" | "name";
+            } = {
+                0: "none",
+                2: "name"
+            };
+            return cases[pb_1.Message.computeOneofCase(this, [2])];
+        }
+        get _symbol() {
+            const cases: {
+                [index: number]: "none" | "symbol";
+            } = {
+                0: "none",
+                3: "symbol"
+            };
+            return cases[pb_1.Message.computeOneofCase(this, [3])];
+        }
+        get _total_supply() {
+            const cases: {
+                [index: number]: "none" | "total_supply";
+            } = {
+                0: "none",
+                4: "total_supply"
+            };
+            return cases[pb_1.Message.computeOneofCase(this, [4])];
+        }
+        static fromObject(data: {
+            id?: ReturnType<typeof AlkaneId.prototype.toObject>;
+            name?: string;
+            symbol?: string;
+            total_supply?: number;
+        }): DeployedAlkane {
+            const message = new DeployedAlkane({});
+            if (data.id != null) {
+                message.id = AlkaneId.fromObject(data.id);
+            }
+            if (data.name != null) {
+                message.name = data.name;
+            }
+            if (data.symbol != null) {
+                message.symbol = data.symbol;
+            }
+            if (data.total_supply != null) {
+                message.total_supply = data.total_supply;
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                id?: ReturnType<typeof AlkaneId.prototype.toObject>;
+                name?: string;
+                symbol?: string;
+                total_supply?: number;
+            } = {};
+            if (this.id != null) {
+                data.id = this.id.toObject();
+            }
+            if (this.name != null) {
+                data.name = this.name;
+            }
+            if (this.symbol != null) {
+                data.symbol = this.symbol;
+            }
+            if (this.total_supply != null) {
+                data.total_supply = this.total_supply;
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.has_id)
+                writer.writeMessage(1, this.id, () => this.id.serialize(writer));
+            if (this.has_name)
+                writer.writeString(2, this.name);
+            if (this.has_symbol)
+                writer.writeString(3, this.symbol);
+            if (this.has_total_supply)
+                writer.writeUint64(4, this.total_supply);
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): DeployedAlkane {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new DeployedAlkane();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        reader.readMessage(message.id, () => message.id = AlkaneId.deserialize(reader));
+                        break;
+                    case 2:
+                        message.name = reader.readString();
+                        break;
+                    case 3:
+                        message.symbol = reader.readString();
+                        break;
+                    case 4:
+                        message.total_supply = reader.readUint64();
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): DeployedAlkane {
+            return DeployedAlkane.deserialize(bytes);
+        }
+    }
+    export class DeployedAlkanesResponse extends pb_1.Message {
+        #one_of_decls: number[][] = [[2]];
+        constructor(data?: any[] | ({
+            alkanes?: DeployedAlkane[];
+        } & (({
+            error?: string;
+        })))) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("alkanes" in data && data.alkanes != undefined) {
+                    this.alkanes = data.alkanes;
+                }
+                if ("error" in data && data.error != undefined) {
+                    this.error = data.error;
+                }
+            }
+        }
+        get alkanes() {
+            return pb_1.Message.getRepeatedWrapperField(this, DeployedAlkane, 1) as DeployedAlkane[];
+        }
+        set alkanes(value: DeployedAlkane[]) {
+            pb_1.Message.setRepeatedWrapperField(this, 1, value);
+        }
+        get error() {
+            return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+        }
+        set error(value: string) {
+            pb_1.Message.setOneofField(this, 2, this.#one_of_decls[0], value);
+        }
+        get has_error() {
+            return pb_1.Message.getField(this, 2) != null;
+        }
+        get _error() {
+            const cases: {
+                [index: number]: "none" | "error";
+            } = {
+                0: "none",
+                2: "error"
+            };
+            return cases[pb_1.Message.computeOneofCase(this, [2])];
+        }
+        static fromObject(data: {
+            alkanes?: ReturnType<typeof DeployedAlkane.prototype.toObject>[];
+            error?: string;
+        }): DeployedAlkanesResponse {
+            const message = new DeployedAlkanesResponse({});
+            if (data.alkanes != null) {
+                message.alkanes = data.alkanes.map(item => DeployedAlkane.fromObject(item));
+            }
+            if (data.error != null) {
+                message.error = data.error;
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                alkanes?: ReturnType<typeof DeployedAlkane.prototype.toObject>[];
+                error?: string;
+            } = {};
+            if (this.alkanes != null) {
+                data.alkanes = this.alkanes.map((item: DeployedAlkane) => item.toObject());
+            }
+            if (this.error != null) {
+                data.error = this.error;
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.alkanes.length)
+                writer.writeRepeatedMessage(1, this.alkanes, (item: DeployedAlkane) => item.serialize(writer));
+            if (this.has_error)
+                writer.writeString(2, this.error);
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): DeployedAlkanesResponse {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new DeployedAlkanesResponse();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        reader.readMessage(message.alkanes, () => pb_1.Message.addToRepeatedWrapperField(message, 1, DeployedAlkane.deserialize(reader), DeployedAlkane));
+                        break;
+                    case 2:
+                        message.error = reader.readString();
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): DeployedAlkanesResponse {
+            return DeployedAlkanesResponse.deserialize(bytes);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 import { OutPoint, RuneOutput } from "./outpoint";
 import { BaseRpc } from "./base-rpc";
+import { alkanes as protoalkanes } from "./proto/alkanes";
 import { AlkaneTransfer } from "./alkane";
 import { ProtoruneEdict } from "./protorune/protoruneedict";
 import { BlockTag } from "./base-rpc";
@@ -28,6 +29,7 @@ export declare class AlkanesRpc extends BaseRpc {
         vout: any;
         protocolTag: any;
     }, blockTag?: BlockTag): Promise<any>;
+    listdeployedalkanes(blockTag?: BlockTag): Promise<protoalkanes.DeployedAlkanesResponse>;
     trace({ txid, vout }: {
         txid: string;
         vout: number;
